@@ -1,6 +1,13 @@
 package com.test.myproject.Job;
 
+import com.test.myproject.Company.Company;
+import jakarta.persistence.*;
+
+@Entity
+// @Table (name = "Jobs_Table") //default name is same as class name
 public class Job {
+    @Id //this for primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto increment
     private  Long id;
     private String title;
     private String description;
@@ -8,13 +15,27 @@ public class Job {
     private String maxSalery;
     private String location;
 
-    public Job(Long id, String title, String description, String minSalery, String maxSalery, String location) {
+    @ManyToOne
+    private Company company;
+    public Job() {
+    }
+
+    public Job(Long id, String title, String description, String minSalery, String maxSalery, String location,Company company) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.minSalery = minSalery;
         this.maxSalery = maxSalery;
         this.location = location;
+        this.company =company;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Long getId() {
